@@ -1,0 +1,11 @@
+Pre-requisites:
+* make sure to uninstall any discord client mods you previously have installed beforehand.
+* If you have an outdated version of node.js, the script will not update it. If you run into issues, uninstall node.js and run the script again, it'll automatically install the latest version.
+
+Instructions:
+1. Run install.bat.  If the process is successful, it will open a GUI asking you to pick a discord to install to.
+2. if it closes and doesn't re-open itself, reopen it manually
+3. Click "Stable," then "Install," then "Install OpenAsar"
+4. In your discord user settings, you will find a bunch of plugins. Read through them and enable the ones you want, then restart discord afterwards.
+
+The plugins I added are: MessageLogger + MessageLoggerEnhanced, BetterMicrophone, BetterScreenshare, and gif collections
