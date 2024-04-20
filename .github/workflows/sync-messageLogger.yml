@@ -1,0 +1,37 @@
+name: Pull files from Syncxv/vc-message-logger-enhanced
+env:
+  SOURCE_REPO: Syncxv/vc-message-logger-enhanced
+  USERNAME: ${{ github.actor }}
+  ADDRESS_SUFFIX: users.noreply.github.com
+  THE_SERVER: ${{ github.server_url }}
+  PATH_SOURCE_CHECKOUT: patches/src/userplugins
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  pull-file:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Checkout source
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.SOURCE_REPO }}
+          path: ${{ env.PATH_SOURCE_CHECKOUT }}
+
+      - name: Commit
+        run: |
+          git config user.name "$USERNAME"
+          git config user.email "$USERNAME@$ADDRESS_SUFFIX"
+          git add patches/src/userplugins/vc-message-logger-enhanced
+          git commit -m "Pulled files from $THE_SERVER/$SOURCE_REPO."
+
+      - name: Push
+        run: |
+          git push
