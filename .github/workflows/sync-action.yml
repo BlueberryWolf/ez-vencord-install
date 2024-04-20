@@ -74,7 +74,7 @@ jobs:
         run: |
           cd $PATH_SOURCE_CHECKOUT
           $EXTRA
-          cp -u $FILES ../patches/src/userplugins
+          cp -u -r $FILES ../patches/src/userplugins
           cd ..
 
       - name: Check for changes
