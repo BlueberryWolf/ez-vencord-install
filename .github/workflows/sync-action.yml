@@ -29,9 +29,9 @@ jobs:
         run: |
           cd $PATH_SOURCE_CHECKOUT
           $EXTRA
-          mv src/plugins/betterScreenshare.desktop ../patches/src/userplugins/betterScreenshare.desktop
-          mv src/plugins/betterMicrophone.desktop ../patches/src/userplugins/betterMicrophone.desktop
-          mv src/plugins/philsPluginLibrary ../patches/src/userplugins/philsPluginLibrary
+          rsync -a --delete src/plugins/betterScreenshare.desktop ../patches/src/userplugins/betterScreenshare.desktop
+          rsync -a --delete src/plugins/betterMicrophone.desktop ../patches/src/userplugins/betterMicrophone.desktop
+          rsync -a --delete src/plugins/philsPluginLibrary ../patches/src/userplugins/philsPluginLibrary
           cd ..
           
       - name: Commit
