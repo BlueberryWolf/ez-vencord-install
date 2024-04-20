@@ -25,9 +25,9 @@ jobs:
           repository: ${{ env.SOURCE_REPO }}
           path: patches/src/userplugins
           sparse-checkout: |
-            src/plugins/betterScreenshare.desktop
-            src/plugins/betterMicrophone.desktop
-            src/plugins/philsPluginLibrary
+            ./src/plugins/betterScreenshare.desktop
+            ./src/plugins/betterMicrophone.desktop
+            ./src/plugins/philsPluginLibrary
 
       # - name: Checkout source
       #   uses: actions/checkout@v3
