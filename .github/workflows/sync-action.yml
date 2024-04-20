@@ -92,7 +92,9 @@ jobs:
         run: |
           git config user.name "$USERNAME"
           git config user.email "$USERNAME@$ADDRESS_SUFFIX"
-          git add $FILES_NEW
+          git add patches/src/userplugins/betterScreenshare.desktop
+          git add patches/src/userplugins/betterMicrophone.desktop
+          git add patches/src/userplugins/philsPluginLibrary
           git commit -m "Pulled files from $THE_SERVER/$SOURCE_REPO."
 
       - name: Push
