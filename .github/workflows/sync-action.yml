@@ -19,7 +19,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Checkout source without token and without branch
+      - name: Checkout source
         uses: actions/checkout@v3
         with:
           repository: ${{ env.SOURCE_REPO }}
@@ -45,8 +45,4 @@ jobs:
 
       - name: Push
         run: |
-          if [ -n "$TARGET_BRANCH" ]; then
-            git push origin $TARGET_BRANCH
-          else
-            git push
-          fi
+          git push
