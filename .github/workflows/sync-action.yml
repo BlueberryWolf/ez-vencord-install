@@ -26,6 +26,8 @@ on: # Remove # below for non default branches
 jobs:
   pull-file:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Check whether to automatically monitor
         if: ${{ github.event_name != 'workflow_dispatch' && env.AUTOMATIC_MONITOR == false }}
@@ -74,9 +76,9 @@ jobs:
         run: |
           cd $PATH_SOURCE_CHECKOUT
           $EXTRA
-          mv src/plugins/betterScreenshare.desktop ../patches/src/userplugins/betterScreenshare.desktop
-          mv src/plugins/betterMicrophone.desktop ../patches/src/userplugins/betterMicrophone.desktop
-          mv src/plugins/philsPluginLibrary ../patches/src/userplugins/philsPluginLibrary
+          cp -u -r src/plugins/betterScreenshare.desktop ../patches/src/userplugins/betterScreenshare.desktop
+          cp -u -r src/plugins/betterMicrophone.desktop ../patches/src/userplugins/betterMicrophone.desktop
+          cp -u -r src/plugins/philsPluginLibrary ../patches/src/userplugins/philsPluginLibrary
           cd ..
 
       - name: Check for changes
@@ -92,9 +94,7 @@ jobs:
         run: |
           git config user.name "$USERNAME"
           git config user.email "$USERNAME@$ADDRESS_SUFFIX"
-          git add patches/src/userplugins/betterScreenshare.desktop
-          git add patches/src/userplugins/betterMicrophone.desktop
-          git add patches/src/userplugins/philsPluginLibrary
+          git add $FILES_NEW
           git commit -m "Pulled files from $THE_SERVER/$SOURCE_REPO."
 
       - name: Push
@@ -104,4 +104,4 @@ jobs:
             git push origin $TARGET_BRANCH
           else
             git push
-          fi
+          fi  
