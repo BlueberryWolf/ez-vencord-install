@@ -27,11 +27,13 @@ jobs:
 
       - name: Update
         run: |
-          rsync -a --delete $PATH_SOURCE_CHECKOUT patches/src/userplugins/betterPinDMs
+          rm -rf $PATH_SOURCE_CHECKOUT/.git
+          rsync -a --delete $PATH_SOURCE_CHECKOUT/ patches/src/userplugins/betterPinDMs
           rm -rf $PATH_SOURCE_CHECKOUT
           
       - name: Commit
         run: |
+          git pull
           git config user.name "$USERNAME"
           git config user.email "$USERNAME@$ADDRESS_SUFFIX"
           git add patches/src/userplugins/betterPinDMs
