@@ -4,3 +4,6 @@
 [submodule "patches/src/userplugins/betterPinDMs"]
 	path = patches/src/userplugins/betterPinDMs
 	url = https://github.com/Syncxv/betterPinDMs
+[submodule "patches/src/userplugins/vc-timezones"]
+	path = patches/src/userplugins/vc-timezones
+	url = https://github.com/Syncxv/vc-timezones
