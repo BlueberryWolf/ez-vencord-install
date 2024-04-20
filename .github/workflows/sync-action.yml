@@ -28,9 +28,9 @@ jobs:
       - name: Update
         run: |
           cd $PATH_SOURCE_CHECKOUT
-          rsync -a --delete src/plugins/betterScreenshare.desktop ../patches/src/userplugins/betterScreenshare.desktop
-          rsync -a --delete src/plugins/betterMicrophone.desktop ../patches/src/userplugins/betterMicrophone.desktop
-          rsync -a --delete src/plugins/philsPluginLibrary ../patches/src/userplugins/philsPluginLibrary
+          rsync -a --delete src/plugins/betterScreenshare.desktop ../patches/src/userplugins/
+          rsync -a --delete src/plugins/betterMicrophone.desktop ../patches/src/userplugins/
+          rsync -a --delete src/plugins/philsPluginLibrary ../patches/src/userplugins/
           cd ..
           rm -rf $PATH_SOURCE_CHECKOUT
           
