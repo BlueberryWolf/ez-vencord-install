@@ -18,7 +18,7 @@ vencord installer with stereo and other stuff (from philhk)
 5. If your discord didn't automatically restart, fully close and re-open discord.
 6. In your discord user settings, you will find a bunch of plugins. Read through them and enable the ones you want, then restart discord afterwards.
 
-The plugins I added are: MessageLoggerEnhanced, BetterMicrophone, BetterScreenshare, and Gif Collections
+The plugins I added are: MessageLoggerEnhanced, BetterMicrophone, BetterScreenshare, Timezones, and Gif Collections
 
 credits:
 Vencord: https://github.com/vendicated/vencord
