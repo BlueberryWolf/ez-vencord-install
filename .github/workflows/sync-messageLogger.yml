@@ -4,7 +4,7 @@ env:
   USERNAME: ${{ github.actor }}
   ADDRESS_SUFFIX: users.noreply.github.com
   THE_SERVER: ${{ github.server_url }}
-  PATH_SOURCE_CHECKOUT: patches/src/userplugins
+  PATH_SOURCE_CHECKOUT: temp_folder
 
 on:
   workflow_dispatch:
@@ -25,6 +25,11 @@ jobs:
           repository: ${{ env.SOURCE_REPO }}
           path: ${{ env.PATH_SOURCE_CHECKOUT }}
 
+      - name: Update
+        run: |
+          rsync -a --delete $PATH_SOURCE_CHECKOUT patches/src/userplugins/vc-message-logger-enhanced
+          rm -rf $PATH_SOURCE_CHECKOUT
+          
       - name: Commit
         run: |
           git config user.name "$USERNAME"
