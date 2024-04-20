@@ -29,9 +29,6 @@ if not '%errorlevel%' == '0' (
 cd /d %1
 exit /B 0
 
-cd /d %1
-exit /B 0
-
 :restartscriptunelevated
 runas /trustlevel:0x20000 "cmd.exe /k %scriptdir%"
 exit
@@ -55,11 +52,26 @@ title vencord install script by @BlueberryWolfi
 
 
 :updaterepo
-git pull --recurse-submodules
-echo updated, press any key to install vencord
-pause >nul
-start cmd.exe /k install.bat
-exit
+if not exist "%~dp0\.git" (
+    echo git not exist
+    cmd /c git init
+    cmd /c git remote add origin https://github.com/BlueberryWolf/ez-vencord-install
+    cmd /c git fetch origin main
+    cmd /c git checkout -f -b main origin/main
+    cmd /c git pull
+    echo updated, press any key to install vencord
+    pause >nul
+    start cmd.exe /k install.bat
+    exit
+) else (
+    cmd /c git pull
+    echo updated, press any key to install vencord
+    pause >nul
+    start cmd.exe /k install.bat
+    exit
+)
+
+exit /B 0
 
 :checkDependencies
 set scriptdir="%~dp0%~nx0"
