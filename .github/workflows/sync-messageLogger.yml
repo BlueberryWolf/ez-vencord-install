@@ -37,7 +37,7 @@ jobs:
           git config user.name "$USERNAME"
           git config user.email "$USERNAME@$ADDRESS_SUFFIX"
           git add patches/src/userplugins/vc-message-logger-enhanced
-          git commit -m "Pulled files from $THE_SERVER/$SOURCE_REPO."
+          git commit -m "Pulled files from $THE_SERVER/$SOURCE_REPO." patches/src/userplugins/vc-message-logger-enhanced
 
       - name: Push
         run: |
