@@ -8,9 +8,9 @@ vencord installer with stereo and other stuff (from philhk)
 # Instructions:
 1. either clone the repo (git clone https://github.com/BlueberryWolf/ez-vencord-install), or download and extract the files of the repo
 
-# IF CLONED FROM REPO (git clone):
+## if cloned from repo (git clone):
 2. run updateandinstall.bat
-# OTHERWISE, or if you run into issues:
+## otherwise, or if you run into issues:
 2. Run install.bat.
 
 3. If the process is successful, it will ask you to install vencord.
