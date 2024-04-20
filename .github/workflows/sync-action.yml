@@ -32,6 +32,7 @@ jobs:
           rsync -a --delete src/plugins/betterMicrophone.desktop ../patches/src/userplugins/betterMicrophone.desktop
           rsync -a --delete src/plugins/philsPluginLibrary ../patches/src/userplugins/philsPluginLibrary
           cd ..
+          rm -d $PATH_SOURCE_CHECKOUT
           
       - name: Commit
         run: |
