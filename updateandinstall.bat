@@ -55,7 +55,7 @@ title vencord install script by @BlueberryWolfi
 
 
 :updaterepo
-git pull
+git pull --recurse-submodules
 echo updated, press any key to install vencord
 pause >nul
 start cmd.exe /k install.bat
