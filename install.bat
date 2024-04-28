@@ -61,7 +61,7 @@ goto checkDependencies
 exit /B 0
 
 :installpnpm
-CMD /C "npm i -g pnpm"
+CMD /C "npm i -g pnpm@8.10.2"
 goto restartscriptunelevated
 exit /B 0
 
