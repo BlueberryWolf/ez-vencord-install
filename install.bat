@@ -48,7 +48,7 @@ exit /B 0
 
 :installnode
 echo installing node...
-choco install nodejs -y
+choco install nodejs-lts -y
 call "%~dp0\lib\resetvars.bat"
 goto checkDependencies
 exit /B 0
