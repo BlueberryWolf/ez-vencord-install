@@ -28,4 +28,4 @@ The plugins I added are: MessageLoggerEnhanced, BetterMicrophone, BetterScreensh
 - Timezones: https://github.com/Syncxv/vc-timezones
 
 #### Additional contributions
-- FakeDeafen: Made for this repository
+- FakeDeafen: Made for this repository by [MisleadingName](https://github.com/misleadingname)
