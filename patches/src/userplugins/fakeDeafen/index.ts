@@ -48,31 +48,32 @@ export default definePlugin({
 
                 // Override original websocket prototype
                 WebSocket.prototype.send = function (data) {
-                    if (typeof (data) === "string") {
-                        let obj: any;
-                        try {
-                            obj = JSON.parse(data);
-                        } catch {
-                            // Not a json!
-                            origWS.apply(this, [data]);
-                            return;
-                        }
+                    const dataType = Object.prototype.toString.call(data);
 
-                        if (obj.d !== undefined) {
-                            if (obj.d.self_deaf !== undefined) {
-                                if (obj.d.self_deaf === false) {
-                                    // Undeafen packet, discard it
-                                    return;
-                                }
+                    switch (dataType) {
+                        case "[object String]":
+                            let obj: any;
+                            try {
+                                obj = JSON.parse(data);
+                            } catch {
+                                // Not a json!
+                                origWS.apply(this, [data]);
+                                return;
                             }
 
-                            // NOP, discarding the packet doesn't do shit
-                            // if (obj.d.speaking !== undefined) {
-                            //     // Speaking packet, discard it
-                            //     return;
-                            // }
-                        }
-                        // Packet not interesting to us, continue to passing data to original websocket
+                            if (obj.d !== undefined && obj.d.self_deaf !== undefined && obj.d.self_deaf === false) {
+                                // Undeafen packet, discard it
+                                return;
+                            }
+                            break;
+
+                        case "[object ArrayBuffer]":
+                            const decoder = new TextDecoder("utf-8");
+                            if (decoder.decode(data).includes("self_deafs\x05false")) {
+                                // Undeafen packet, discard it
+                                return;
+                            }
+                            break;
                     }
 
                     // Pass data down to original websocket
