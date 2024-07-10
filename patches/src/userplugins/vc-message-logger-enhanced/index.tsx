@@ -1,20 +1,8 @@
 /*
- * Vencord, a modification for Discord's desktop app
- * Copyright (c) 2023 Vendicated and contributors
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
+ * Vencord, a Discord client mod
+ * Copyright (c) 2024 Vendicated and contributors
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
 
 export const VERSION = "3.0.0";
 
@@ -38,7 +26,7 @@ import { openUpdaterModal } from "./components/UpdaterModal";
 import { addMessage, loggedMessages, MessageLoggerStore, removeLog } from "./LoggedMessageManager";
 import * as LoggedMessageManager from "./LoggedMessageManager";
 import { LoadMessagePayload, LoggedAttachment, LoggedMessage, LoggedMessageJSON, MessageCreatePayload, MessageDeleteBulkPayload, MessageDeletePayload, MessageUpdatePayload } from "./types";
-import { addToXAndRemoveFromOpposite, cleanUpCachedMessage, cleanupUserObject, doesBlobUrlExist, getNative, isGhostPinged, ListType, mapEditHistory, reAddDeletedMessages, removeFromX } from "./utils";
+import { addToXAndRemoveFromOpposite, cleanUpCachedMessage, cleanupUserObject, doesBlobUrlExist, getNative, isGhostPinged, ListType, mapEditHistory, messageJsonToMessageClass, reAddDeletedMessages, removeFromX } from "./utils";
 import { DEFAULT_IMAGE_CACHE_DIR } from "./utils/constants";
 import { shouldIgnore } from "./utils/index";
 import { LimitedMap } from "./utils/LimitedMap";
@@ -55,6 +43,7 @@ export const cacheSentMessages = new LimitedMap<string, LoggedMessageJSON>();
 
 const cacheThing = findByPropsLazy("commit", "getOrCreate");
 
+let oldGetMessage: typeof MessageStore.getMessage;
 
 const handledMessageIds = new Set();
 async function messageDeleteHandler(payload: MessageDeletePayload & { isBulk: boolean; }) {
@@ -74,7 +63,7 @@ async function messageDeleteHandler(payload: MessageDeletePayload & { isBulk: bo
         handledMessageIds.add(payload.id);
 
         let message: LoggedMessage | LoggedMessageJSON | null =
-            MessageStore.getMessage(payload.channelId, payload.id);
+            oldGetMessage?.(payload.channelId, payload.id);
         if (message == null) {
             // most likely an edited message
             const cachedMessage = cacheSentMessages.get(`${payload.channelId},${payload.id}`);
@@ -143,8 +132,7 @@ async function messageUpdateHandler(payload: MessageUpdatePayload) {
         return;//  Flogger.log("this message has been ignored", payload);
     }
 
-    let message = MessageStore
-        .getMessage(payload.message.channel_id, payload.message.id) as LoggedMessage | LoggedMessageJSON | null;
+    let message = oldGetMessage?.(payload.message.channel_id, payload.message.id) as LoggedMessage | LoggedMessageJSON | null;
 
     if (message == null) {
         // MESSAGE_UPDATE gets dispatched when emebeds change too and content becomes null
@@ -334,7 +322,7 @@ export const settings = definePluginSettings({
         description: "Toggle to whenever show the toolbox or not",
         restartNeeded: true,
     },
-    
+
     hideMessageFromMessageLoggersDeletedMessage: {
         default: "redacted eh",
         type: OptionType.STRING,
@@ -456,8 +444,8 @@ export default definePlugin({
         {
             find: "THREAD_STARTER_MESSAGE?null===",
             replacement: {
-                match: /(attachments: \i\(.{1,500})deleted:.{1,50},editHistory:.{1,30},/,
-                replace: "$1deleted: $self.getDeleted(...arguments),editHistory: $self.getEdited(...arguments),"
+                match: / deleted:\i\.deleted, editHistory:\i\.editHistory,/,
+                replace: "deleted:$self.getDeleted(...arguments), editHistory:$self.getEdited(...arguments),"
             }
         },
 
@@ -499,7 +487,7 @@ export default definePlugin({
         {
             find: "Using PollReferenceMessageContext without",
             replacement: {
-                match: /\i\.(?:default\.)?focusMessage\(/,
+                match: /(?:\i\.)?\i\.(?:default\.)?focusMessage\(/,
                 replace: "!(arguments[0]?.message?.deleted || arguments[0]?.message?.editHistory?.length > 0) && $&"
             }
         },
@@ -612,6 +600,15 @@ export default definePlugin({
         // if (!settings.store.saveMessages)
         //     clearLogs();
 
+        this.oldGetMessage = oldGetMessage = MessageStore.getMessage;
+        // we have to do this because the original message logger fetches the message from the store now
+        MessageStore.getMessage = (channelId: string, messageId: string) => {
+            const MLMessage = LoggedMessageManager.getMessage(channelId, messageId);
+            if (MLMessage?.message) return messageJsonToMessageClass(MLMessage);
+
+            return this.oldGetMessage(channelId, messageId);
+        };
+
         checkForUpdatesAndNotify(settings.store.autoCheckForUpdates);
 
         Native.init();
@@ -636,6 +633,8 @@ export default definePlugin({
         removeContextMenuPatch("user-context", contextMenuPath);
         removeContextMenuPatch("guild-context", contextMenuPath);
         removeContextMenuPatch("gdm-context", contextMenuPath);
+
+        MessageStore.getMessage = this.oldGetMessage;
     }
 });
 
