@@ -20,9 +20,12 @@ vencord installer with stereo and other stuff (from philhk)
 
 The plugins I added are: MessageLoggerEnhanced, BetterMicrophone, BetterScreenshare, Timezones, and Gif Collections
 
-credits:
-Vencord: https://github.com/vendicated/vencord
-Stereo/Screenshare: https://github.com/philhk/Vencord
-MessageLogger Enhanced: https://github.com/Syncxv/vc-message-logger-enhanced
-Gif Collections: https://github.com/Syncxv/vc-gif-collections
-Timezones: https://github.com/Syncxv/vc-timezones
+## Credits
+- Vencord: https://github.com/vendicated/vencord
+- Stereo/Screenshare: https://github.com/philhk/Vencord
+- MessageLogger Enhanced: https://github.com/Syncxv/vc-message-logger-enhanced
+- Gif Collections: https://github.com/Syncxv/vc-gif-collections
+- Timezones: https://github.com/Syncxv/vc-timezones
+
+#### Additional contributions
+- FakeDeafen: Made for this repository by [MisleadingName](https://github.com/misleadingname)
