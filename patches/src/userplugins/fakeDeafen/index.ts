@@ -23,6 +23,7 @@ interface VoiceState {
 const VoiceStateStore = findByPropsLazy("getVoiceStatesForChannel", "getCurrentClientVoiceChannelId");
 
 let faking: boolean = false;
+let origWS: (data: string | ArrayBufferLike | Blob | ArrayBufferView) => void;
 
 function log(text: string) {
     new Logger("FakeDeafen", "#7b4af7").info(text);
@@ -31,7 +32,7 @@ function log(text: string) {
 export default definePlugin({
     name: "FakeDeafen",
     description: "Fake deafens you. (So you still hear things.)",
-    authors: [{ name: "MisleadingName", id: 892072557988151347n }],
+    authors: [{ name: "MisleadingName", id: 892072557988151347n }, { name: "Exotic", id: 287667540178501634n }],
 
     flux: {
         AUDIO_TOGGLE_SELF_DEAF: async function () {
@@ -42,47 +43,70 @@ export default definePlugin({
             if (!s) return;
 
             const event = s.deaf || s.selfDeaf ? "undeafen" : "deafen";
-            const text = new TextDecoder("utf-8");
             if (event === "deafen") {
+                faking = true;
+
+                // Override original websocket prototype
                 WebSocket.prototype.send = function (data) {
-                    if (Object.prototype.toString.call(data) === "[object ArrayBuffer]") {
-                        if (text.decode(data).includes("self_deafs\x05false")) {
-                            log("Discarding undeafen packet");
-                            WebSocket.prototype.send = WebSocket.prototype.original;
-                            faking = true;
+                    const dataType = Object.prototype.toString.call(data);
 
-                            showNotification({
-                                title: "FakeDeafen",
-                                body: "Re-deafen to disable."
-                            });
+                    switch (dataType) {
+                        case "[object String]":
+                            let obj: any;
+                            try {
+                                obj = JSON.parse(data);
+                            } catch {
+                                // Not a json!
+                                origWS.apply(this, [data]);
+                                return;
+                            }
 
-                            return;
-                        }
+                            if (obj.d !== undefined && obj.d.self_deaf !== undefined && obj.d.self_deaf === false) {
+                                // Undeafen packet, discard it
+                                return;
+                            }
+                            break;
+
+                        case "[object ArrayBuffer]":
+                            const decoder = new TextDecoder("utf-8");
+                            if (decoder.decode(data).includes("self_deafs\x05false")) {
+                                // Undeafen packet, discard it
+                                return;
+                            }
+                            break;
                     }
-                    WebSocket.prototype.original.apply(this, [data]);
+
+                    // Pass data down to original websocket
+                    origWS.apply(this, [data]);
                 };
 
                 showNotification({
                     title: "FakeDeafen",
                     body: "Deafening is now faked. Please undeafen."
                 });
+            } else {
+                if (faking === true) {
+                    faking = false;
+                } else {
+                    WebSocket.prototype.send = origWS;
 
-                log("Injected");
-            } else if(event === "undeafen" && faking) {
-                faking = false;
-                return;
+                    showNotification({
+                        title: "FakeDeafen",
+                        body: "Fake deafen is now disabled."
+                    });
+                }
             }
         }
     },
 
     start: function () {
-        WebSocket.prototype.original = WebSocket.prototype.send;
+        origWS = WebSocket.prototype.send;
 
         log("Ready");
     },
 
     stop: function () {
-        WebSocket.prototype.send = WebSocket.prototype.original;
+        WebSocket.prototype.send = origWS;
 
         log("Disarmed");
     }
