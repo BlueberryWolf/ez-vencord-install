@@ -17,7 +17,7 @@ import ChannelsTabsContainer from "./components/ChannelTabsContainer";
 import { BasicChannelTabsProps, createTab, settings } from "./util";
 
 import * as ChannelTabsUtils from "./util";
-import { hideTabsBar } from "./util/tabs";
+import { hideTabsBar } from "./components/ChannelTabsContainer";
 
 const contextMenuPatch: NavContextMenuPatchCallback = (children, props: { channel: Channel, messageId?: string; }) =>
     () => {
@@ -129,6 +129,7 @@ export default definePlugin({
 
     toolboxActions: {
         "Hide Tabs"() {
+            settings.store.hideTabs = !settings.store.hideTabs;
             hideTabsBar();
         }
     },

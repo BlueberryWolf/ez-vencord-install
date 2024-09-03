@@ -10,7 +10,7 @@ import { Button, ChannelStore, FluxDispatcher, Forms, i18n, Menu, ReadStateStore
 
 import { bookmarkFolderColors, bookmarkPlaceholderName, closeOtherTabs, closeTab, closeTabsToTheRight, createTab, hasClosedTabs, isBookmarkFolder, openedTabs, reopenClosedTab, settings, toggleCompactTab } from "../util";
 import { Bookmark, BookmarkFolder, Bookmarks, ChannelTabsProps, UseBookmarkMethods } from "../util/types";
-import { hideTabsBar } from "../util/tabs";
+import { hideTabsBar } from "./ChannelTabsContainer";
 
 export function BasicContextMenu() {
     const { showBookmarkBar, hideTabs } = settings.use(["showBookmarkBar", "hideTabs"]);

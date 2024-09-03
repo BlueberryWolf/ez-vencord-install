@@ -19,9 +19,24 @@ type TabSet = Record<string, ChannelTabsProps[]>;
 const { PlusSmallIcon } = findByPropsLazy("PlusSmallIcon");
 const cl = classNameFactory("vc-channeltabs-");
 
+var ref;
+var collapsed: boolean;
+
+export function hideTabsBar() {
+    let container = ref?.current;
+
+    if (!container) return;
+    collapsed = settings.store.hideTabs;
+    
+    container.style.transform = `scale(${collapsed ? 0 : 1})`;
+    container.style.opacity = collapsed ? "0%" : "100%";
+    // this is very scuffed, but I cannot .animate or CSS transition the height so.. 
+    container.style['margin-bottom'] = collapsed ? `-${container.clientHeight}px` : `0px`;
+}
+
 export default function ChannelsTabsContainer(props: BasicChannelTabsProps) {
     const [userId, setUserId] = useState("");
-    const { showBookmarkBar, widerTabsAndBookmarks } = settings.use(["showBookmarkBar", "widerTabsAndBookmarks"]);
+    const { showBookmarkBar, widerTabsAndBookmarks, hideTabs } = settings.use(["showBookmarkBar", "widerTabsAndBookmarks", "hideTabs"]);
     const GhostTabs = useGhostTabs();
 
     const _update = useForceUpdater();
@@ -40,8 +55,9 @@ export default function ChannelsTabsContainer(props: BasicChannelTabsProps) {
         }
     }, []);
 
-    const ref = useRef<HTMLDivElement>(null);
-
+    ref = useRef<HTMLDivElement>(null);
+    hideTabsBar();
+    
     useEffect(() => {
         setUpdaterFunction(update);
         const onLogin = () => {

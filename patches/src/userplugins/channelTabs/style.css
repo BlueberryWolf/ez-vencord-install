@@ -57,6 +57,7 @@
     --channeltabs-pink: #ff73fa;
 
     padding: 0.35rem;
+    transition: transform 0.25s ease-in-out, opacity 0.25s ease-in-out, margin-bottom 0.25s ease-in-out;
     display: flex;
     flex-direction: column;
 }

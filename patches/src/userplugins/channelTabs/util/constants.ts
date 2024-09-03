@@ -56,7 +56,12 @@ export const settings = definePluginSettings({
         type: OptionType.BOOLEAN,
         default: true
     },
-    showBookmarkBar: {
+    hideTabs: {
+        description: "",
+        type: OptionType.BOOLEAN,
+        default: false
+    },
+    showTabs: {
         description: "",
         type: OptionType.BOOLEAN,
         default: true

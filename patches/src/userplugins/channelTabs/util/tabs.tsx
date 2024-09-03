@@ -25,8 +25,6 @@ const genId = () => highestIdIndex++;
 const openTabs: ChannelTabsProps[] = [];
 const closedTabs: ChannelTabsProps[] = [];
 let currentlyOpenTab: number;
-let originalHeight: number;
-let collapsed: boolean;
 const openTabHistory: number[] = [];
 let persistedTabs: Promise<PersistedTabs | undefined>;
 
@@ -56,15 +54,6 @@ export function createTab(props: BasicChannelTabsProps | ChannelTabsProps, switc
     update(save);
 }
 
-export function hideTabsBar() {
-    let container = document.getElementsByClassName("vc-channeltabs-container")[0]
-
-    if (!container) return;
-    if (!collapsed) originalHeight = container.style.height;
-    collapsed = !collapsed;
-    container.style.setProperty("height", collapsed ? "0px" : originalHeight);
-    container.style.setProperty("opacity", collapsed ? "0%" : "100%"); 
-}
 
 export function closeTab(id: number) {
     if (openTabs.length <= 1) return;
