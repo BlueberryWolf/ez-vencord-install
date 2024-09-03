@@ -10,9 +10,10 @@ import { Button, ChannelStore, FluxDispatcher, Forms, i18n, Menu, ReadStateStore
 
 import { bookmarkFolderColors, bookmarkPlaceholderName, closeOtherTabs, closeTab, closeTabsToTheRight, createTab, hasClosedTabs, isBookmarkFolder, openedTabs, reopenClosedTab, settings, toggleCompactTab } from "../util";
 import { Bookmark, BookmarkFolder, Bookmarks, ChannelTabsProps, UseBookmarkMethods } from "../util/types";
+import { hideTabsBar } from "../util/tabs";
 
 export function BasicContextMenu() {
-    const { showBookmarkBar } = settings.use(["showBookmarkBar"]);
+    const { showBookmarkBar, hideTabs } = settings.use(["showBookmarkBar", "hideTabs"]);
 
     return (
         <Menu.Menu
@@ -27,6 +28,15 @@ export function BasicContextMenu() {
                     label="Bookmark Bar"
                     action={() => {
                         settings.store.showBookmarkBar = !settings.store.showBookmarkBar;
+                    }}
+                />
+                <Menu.MenuCheckboxItem
+                    checked={hideTabs}
+                    id="hide-tabs"
+                    label="Hide Tabs"
+                    action={() => {
+                        settings.store.hideTabs = !settings.store.hideTabs;
+                        hideTabsBar();
                     }}
                 />
             </Menu.MenuGroup>
@@ -163,7 +173,7 @@ function DeleteFolderConfirmationModal({ modalProps, modalKey, onConfirm }) {
 }
 
 export function BookmarkContextMenu({ bookmarks, index, methods }: { bookmarks: Bookmarks, index: number, methods: UseBookmarkMethods; }) {
-    const { showBookmarkBar, bookmarkNotificationDot } = settings.use(["showBookmarkBar", "bookmarkNotificationDot"]);
+    const { showBookmarkBar, bookmarkNotificationDot, hideTabs } = settings.use(["showBookmarkBar", "bookmarkNotificationDot", "hideTabs"]);
     const bookmark = bookmarks[index];
     const isFolder = isBookmarkFolder(bookmark);
 
@@ -267,6 +277,15 @@ export function BookmarkContextMenu({ bookmarks, index, methods }: { bookmarks: 
                         settings.store.showBookmarkBar = !settings.store.showBookmarkBar;
                     }}
                 />
+                <Menu.MenuCheckboxItem
+                    checked={hideTabs}
+                    id="hide-tabs"
+                    label="Hide Tabs"
+                    action={() => {
+                        settings.store.hideTabs = !settings.store.hideTabs;
+                        hideTabsBar();
+                    }}
+                />
             </Menu.MenuGroup>
         </Menu.Menu>
     );
@@ -275,7 +294,7 @@ export function BookmarkContextMenu({ bookmarks, index, methods }: { bookmarks: 
 export function TabContextMenu({ tab }: { tab: ChannelTabsProps; }) {
     const channel = ChannelStore.getChannel(tab.channelId);
     const [compact, setCompact] = useState(tab.compact);
-    const { showBookmarkBar } = settings.use(["showBookmarkBar"]);
+    const { showBookmarkBar, hideTabs } = settings.use(["showBookmarkBar", "hideTabs"]);
 
     return (
         <Menu.Menu
@@ -333,6 +352,15 @@ export function TabContextMenu({ tab }: { tab: ChannelTabsProps; }) {
                     label="Bookmark Bar"
                     action={() => {
                         settings.store.showBookmarkBar = !settings.store.showBookmarkBar;
+                    }}
+                />
+                <Menu.MenuCheckboxItem
+                    checked={hideTabs}
+                    id="hide-tabs"
+                    label="Hide Tabs"
+                    action={() => {
+                        settings.store.hideTabs = !settings.store.hideTabs;
+                        hideTabsBar();
                     }}
                 />
             </Menu.MenuGroup>

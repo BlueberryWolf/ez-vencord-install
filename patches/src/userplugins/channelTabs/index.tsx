@@ -17,6 +17,7 @@ import ChannelsTabsContainer from "./components/ChannelTabsContainer";
 import { BasicChannelTabsProps, createTab, settings } from "./util";
 
 import * as ChannelTabsUtils from "./util";
+import { hideTabsBar } from "./util/tabs";
 
 const contextMenuPatch: NavContextMenuPatchCallback = (children, props: { channel: Channel, messageId?: string; }) =>
     () => {
@@ -33,9 +34,6 @@ const contextMenuPatch: NavContextMenuPatchCallback = (children, props: { channe
             />
         );
     };
-
-var collapsed: boolean = false;
-var originalHeight: string;
 
 export default definePlugin({
     name: "ChannelTabs",
@@ -131,13 +129,7 @@ export default definePlugin({
 
     toolboxActions: {
         "Hide Tabs"() {
-            let container = document.getElementsByClassName("vc-channeltabs-container")[0]
-
-            if (!container) return;
-            if (!collapsed) originalHeight = container.style.height;
-            collapsed = !collapsed;
-            container.style.setProperty("height", collapsed ? "0px" : originalHeight);
-            container.style.setProperty("opacity", collapsed ? "0%" : "100%"); 
+            hideTabsBar();
         }
     },
 
