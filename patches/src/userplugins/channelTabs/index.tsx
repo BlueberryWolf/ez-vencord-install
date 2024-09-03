@@ -15,6 +15,7 @@ import { Channel, Message } from "discord-types/general";
 
 import ChannelsTabsContainer from "./components/ChannelTabsContainer";
 import { BasicChannelTabsProps, createTab, settings } from "./util";
+
 import * as ChannelTabsUtils from "./util";
 
 const contextMenuPatch: NavContextMenuPatchCallback = (children, props: { channel: Channel, messageId?: string; }) =>
@@ -32,6 +33,9 @@ const contextMenuPatch: NavContextMenuPatchCallback = (children, props: { channe
             />
         );
     };
+
+var collapsed: boolean = false;
+var originalHeight: string;
 
 export default definePlugin({
     name: "ChannelTabs",
@@ -123,6 +127,18 @@ export default definePlugin({
     onAppDirectoryClose() {
         this.appDirectoryClosed = true;
         setTimeout(() => this.appDirectoryClosed = false, 0);
+    },
+
+    toolboxActions: {
+        "Hide Tabs"() {
+            let container = document.getElementsByClassName("vc-channeltabs-container")[0]
+
+            if (!container) return;
+            if (!collapsed) originalHeight = container.style.height;
+            collapsed = !collapsed;
+            container.style.setProperty("height", collapsed ? "0px" : originalHeight);
+            container.style.setProperty("opacity", collapsed ? "0%" : "100%"); 
+        }
     },
 
     util: ChannelTabsUtils,

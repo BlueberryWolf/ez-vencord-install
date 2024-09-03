@@ -128,3 +128,5 @@ export function ChannelTabsPreview(p) {
         </>
     );
 }
+
+export var ref;

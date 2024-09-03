@@ -272,3 +272,5 @@ export const PreviewTab = (props: ChannelTabsProps) => {
         </div>
     );
 };
+
+export var ref;
