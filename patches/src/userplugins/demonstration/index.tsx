@@ -6,7 +6,7 @@
 
 import { definePluginSettings } from "@api/Settings";
 import { classNameFactory } from "@api/Styles";
-import { Devs, EquicordDevs } from "@utils/constants";
+import { Devs, Dev } from "@utils/constants";
 import { closeModal, ModalCloseButton, ModalContent, ModalHeader, ModalRoot, openModal } from "@utils/modal";
 import definePlugin, { OptionType } from "@utils/types";
 import { Button, Forms, Switch, Text } from "@webpack/common";
@@ -126,6 +126,12 @@ async function playSound(url: string) {
     audio.remove();
 }
 
+const EquicordDevs = Object.freeze({
+    Panniku: {
+        name: "Panniku",
+        id: 703634705152606318n,
+    }
+} satisfies Record<string, Dev>);
 
 export default definePlugin({
     name: "Demonstration",

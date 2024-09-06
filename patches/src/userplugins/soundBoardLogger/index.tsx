@@ -7,7 +7,7 @@
 import { addChatBarButton, removeChatBarButton } from "@api/ChatButtons";
 import { disableStyle, enableStyle } from "@api/Styles";
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs, EquicordDevs } from "@utils/constants";
+import { Devs, Dev } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { FluxDispatcher } from "@webpack/common";
 
@@ -17,6 +17,17 @@ import settings from "./settings";
 import { updateLoggedSounds } from "./store";
 import styles from "./styles.css?managed";
 import { getListeners } from "./utils";
+
+const EquicordDevs = Object.freeze({
+    Fres: {
+        name: "fres",
+        id: 843448897737064448n
+    },
+    thororen: {
+        name: "thororen",
+        id: 848339671629299742n
+    },
+} satisfies Record<string, Dev>);
 
 export default definePlugin({
     name: "SoundBoardLogger",

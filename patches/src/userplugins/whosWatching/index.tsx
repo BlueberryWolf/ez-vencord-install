@@ -8,7 +8,7 @@ import { definePluginSettings } from "@api/Settings";
 import { classNameFactory } from "@api/Styles";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Flex } from "@components/Flex";
-import { EquicordDevs } from "@utils/constants";
+import { Dev } from "@utils/constants";
 import { openUserProfile } from "@utils/discord";
 import { Margins } from "@utils/margins";
 import { classes } from "@utils/misc";
@@ -77,6 +77,17 @@ const ApplicationStreamingStore = findStoreLazy("ApplicationStreamingStore");
 
 const UserSummaryItem = findComponentByCodeLazy("defaultRenderUser", "showDefaultAvatarsForNullUsers");
 const AvatarStyles = findByPropsLazy("moreUsers", "emptyUser", "avatarContainer", "clickableAvatar");
+
+const EquicordDevs = Object.freeze({
+    Fres: {
+        name: "fres",
+        id: 843448897737064448n
+    },
+    thororen: {
+        name: "thororen",
+        id: 848339671629299742n
+    },
+} satisfies Record<string, Dev>);
 
 export default definePlugin({
     name: "WhosWatching",

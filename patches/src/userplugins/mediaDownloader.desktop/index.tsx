@@ -11,7 +11,7 @@ import * as DataStore from "@api/DataStore";
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Link } from "@components/Link";
-import { EquicordDevs } from "@utils/constants";
+import { Dev } from "@utils/constants";
 import { Logger } from "@utils/Logger";
 import { openModal } from "@utils/modal";
 import definePlugin, { OptionType, PluginNative, ReporterTestable } from "@utils/types";
@@ -189,6 +189,13 @@ const settings = definePluginSettings({
         }
     }
 });
+
+const EquicordDevs = Object.freeze({
+    Colorman: {
+        name: "colorman",
+        id: 298842558610800650n,
+    },
+} satisfies Record<string, Dev>);
 
 export default definePlugin({
     name: "MediaDownloader",

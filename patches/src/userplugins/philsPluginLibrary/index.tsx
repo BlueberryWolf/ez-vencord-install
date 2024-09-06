@@ -39,16 +39,6 @@ export default new class Plugin implements PluginDef {
                 match: /(?<=function)( .{0,3}(?={).)(.{0,1000}custom-app-panels-height.+?\)]}\))(})/,
                 replace: "$1return $self.replacedUserPanelComponent(function(){$2}, this, arguments)$3"
             }
-        }, {
-            find: "Unknown frame rate",
-            replacement: [{
-                match: /(switch\((.{0,10})\).{0,1000})(throw Error\(.{0,100}?Unknown resolution.{0,100}?\))(?=})/,
-                replace: "$1return $2"
-            },
-            {
-                match: /(switch\((.{0,10})\).{0,1000})(throw Error\(.{0,100}?Unknown frame rate.{0,100}?\))(?=})/,
-                replace: "$1return $2"
-            }]
         }];
         this.replacedUserPanelComponent = replacedUserPanelComponent;
     }

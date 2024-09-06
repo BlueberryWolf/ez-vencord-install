@@ -8,7 +8,7 @@ import "./styles.css";
 
 import { addServerListElement, removeServerListElement, ServerListRenderPosition } from "@api/ServerList";
 import ErrorBoundary from "@components/ErrorBoundary";
-import { EquicordDevs } from "@utils/constants";
+import { Dev } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { findByCodeLazy } from "@webpack";
 import { Tooltip } from "webpack/common/components";
@@ -25,6 +25,13 @@ function SearchIcon() {
         </svg>
     );
 }
+
+const EquicordDevs = Object.freeze({
+    camila314: {
+        name: "camila314",
+        id: 738592270617542716n
+    },
+} satisfies Record<string, Dev>);
 
 export default definePlugin({
     name: "ServerSearch",

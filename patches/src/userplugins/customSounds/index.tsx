@@ -8,7 +8,7 @@ import "./styles.css";
 
 import { DataStore } from "@api/index";
 import { definePluginSettings } from "@api/Settings";
-import { Devs, EquicordDevs } from "@utils/constants";
+import { Dev, Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { React } from "@webpack/common";
 
@@ -47,6 +47,13 @@ export function findOverride(id: string): SoundOverride | null {
 
     return result;
 }
+
+const EquicordDevs = Object.freeze({
+    SpikeHD: {
+        name: "SpikeHD",
+        id: 221757857836564485n
+    }
+} satisfies Record<string, Dev>);
 
 export default definePlugin({
     name: "CustomSounds",

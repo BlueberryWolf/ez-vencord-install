@@ -5,7 +5,7 @@
  */
 
 import { definePluginSettings } from "@api/Settings";
-import { EquicordDevs } from "@utils/constants";
+import { Dev } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 
 const settings = definePluginSettings({
@@ -34,6 +34,13 @@ const settings = definePluginSettings({
         ]
     }
 });
+
+const EquicordDevs = Object.freeze({
+    Drag: {
+        name: "dragalt_",
+        id: 1189903210564038697n,
+    },
+} satisfies Record<string, Dev>);
 
 export default definePlugin({
     name: "PlatformSpoofer",

@@ -8,7 +8,7 @@ import "./style.css";
 
 import { findGroupChildrenByChildId, NavContextMenuPatchCallback } from "@api/ContextMenu";
 import ErrorBoundary from "@components/ErrorBoundary";
-import { Devs, EquicordDevs } from "@utils/constants";
+import { Dev, Devs } from "@utils/constants";
 import definePlugin from "@utils/types";
 import { ChannelStore, Menu } from "@webpack/common";
 import { Channel, Message } from "discord-types/general";
@@ -34,6 +34,13 @@ const contextMenuPatch: NavContextMenuPatchCallback = (children, props: { channe
             />
         );
     };
+
+const EquicordDevs = Object.freeze({
+    keifufu: {
+        name: "keifufu",
+        id: 469588398110146590n
+    },
+} satisfies Record<string, Dev>);
 
 export default definePlugin({
     name: "ChannelTabs",

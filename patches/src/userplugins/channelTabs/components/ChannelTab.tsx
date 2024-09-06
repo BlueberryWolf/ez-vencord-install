@@ -7,12 +7,31 @@
 import { classNameFactory } from "@api/Styles";
 import { getUniqueUsername } from "@utils/discord";
 import { classes } from "@utils/misc";
-import { findByPropsLazy, findComponentByCodeLazy } from "@webpack";
-import { Avatar, ChannelStore, ContextMenuApi, Dots, GuildStore, i18n, PresenceStore, ReadStateStore, Text, TypingStore, useDrag, useDrop, useRef, UserStore, useStateFromStores } from "@webpack/common";
+import { findByPropsLazy, findStoreLazy, findComponentByCodeLazy, findByCodeLazy} from "@webpack";
+import { Avatar, ChannelStore, ContextMenuApi, GuildStore, i18n, PresenceStore, ReadStateStore, Text, useRef, UserStore, useStateFromStores } from "@webpack/common";
 import { Channel, Guild, User } from "discord-types/general";
 
 import { ChannelTabsProps, CircleQuestionIcon, closeTab, isTabSelected, moveDraggedTabs, moveToTab, openedTabs, settings } from "../util";
 import { TabContextMenu } from "./ContextMenus";
+import { ComponentType, PropsWithChildren } from "react";
+import * as t from "@webpack/types/stores";
+
+export type GenericStore = t.FluxStore & Record<string, any>;
+export let TypingStore: GenericStore;
+TypingStore = findStoreLazy("TypingStore");
+
+type typeDots = ComponentType<PropsWithChildren<{
+    dotRadius: number;
+    themed?: boolean;
+    className?: string;
+}>>;
+
+const useDrag = findByCodeLazy("useDrag::spec.begin was deprecated");
+const useDrop = findByCodeLazy(".options);return", ".collect,");
+
+
+let Dots: typeDots;
+
 
 const { getBadgeWidthForValue } = findByPropsLazy("getBadgeWidthForValue");
 const dotStyles = findByPropsLazy("numberBadge", "textBadge");

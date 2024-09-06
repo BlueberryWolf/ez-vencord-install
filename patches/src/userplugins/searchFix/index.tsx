@@ -16,8 +16,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { EquicordDevs } from "@utils/constants";
+import { Dev } from "@utils/constants";
 import definePlugin from "@utils/types";
+
+const EquicordDevs = Object.freeze({
+    Jaxx: {
+        name: "Jaxx",
+        id: 901016640253227059n,
+    },
+} satisfies Record<string, Dev>);
 
 export default definePlugin({
     name: "SearchFix",
