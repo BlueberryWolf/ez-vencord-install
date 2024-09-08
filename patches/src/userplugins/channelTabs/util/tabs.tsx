@@ -54,7 +54,6 @@ export function createTab(props: BasicChannelTabsProps | ChannelTabsProps, switc
     update(save);
 }
 
-
 export function closeTab(id: number) {
     if (openTabs.length <= 1) return;
     const i = openTabs.findIndex(v => v.id === id);

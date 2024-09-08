@@ -7,18 +7,13 @@
 import { classNameFactory } from "@api/Styles";
 import { classes } from "@utils/misc";
 import { closeModal, openModal } from "@utils/modal";
-import { findByCodeLazy, findByPropsLazy, mapMangledModuleLazy, filters } from "@webpack";
+import { findByPropsLazy } from "@webpack";
+import { ReadStateUtils, useDrag, useDrop } from "../util/constants";
 import { Avatar, ChannelStore, ContextMenuApi, FluxDispatcher, GuildStore, i18n, Menu, ReadStateStore, Text, Tooltip, useEffect, useRef, UserStore } from "@webpack/common";
+
 import { BasicChannelTabsProps, Bookmark, BookmarkFolder, BookmarkProps, CircleQuestionIcon, isBookmarkFolder, settings, switchChannel, useBookmarks } from "../util";
 import { NotificationDot } from "./ChannelTab";
 import { BookmarkContextMenu, EditModal } from "./ContextMenus";
-
-const ReadStateUtils = mapMangledModuleLazy('type:"ENABLE_AUTOMATIC_ACK",', {
-    ackChannel: filters.byCode(".getActiveJoinedThreadsForParent(")
-});
-
-const useDrag = findByCodeLazy("useDrag::spec.begin was deprecated");
-const useDrop = findByCodeLazy(".options);return", ".collect,");
 
 const cl = classNameFactory("vc-channeltabs-");
 

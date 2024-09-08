@@ -7,7 +7,7 @@
 import { definePluginSettings } from "@api/Settings";
 import { Logger } from "@utils/Logger";
 import { OptionType } from "@utils/types";
-import { findByPropsLazy } from "@webpack";
+import { findByPropsLazy, filters, findByCodeLazy, mapMangledModuleLazy, findStoreLazy } from "@webpack";
 
 import { ChannelTabsPreview } from "../components/ChannelTabsContainer";
 
@@ -23,6 +23,15 @@ export const bookmarkFolderColors = {
     Orange: "var(--channeltabs-orange)",
     Pink: "var(--channeltabs-pink)"
 } as const;
+
+
+export const ReadStateUtils = mapMangledModuleLazy('type:"ENABLE_AUTOMATIC_ACK",', {
+    ackChannel: filters.byCode(".getActiveJoinedThreadsForParent(")
+});
+
+export const useDrag = findByCodeLazy("useDrag::spec.begin was deprecated");
+export const useDrop = findByCodeLazy(".options);return", ".collect,");
+export const TypingStore = findStoreLazy("TypingStore");
 
 export const settings = definePluginSettings({
     onStartup: {
@@ -56,12 +65,7 @@ export const settings = definePluginSettings({
         type: OptionType.BOOLEAN,
         default: true
     },
-    hideTabs: {
-        description: "",
-        type: OptionType.BOOLEAN,
-        default: false
-    },
-    showTabs: {
+    showBookmarkBar: {
         description: "",
         type: OptionType.BOOLEAN,
         default: true

@@ -36,7 +36,7 @@ export function hideTabsBar() {
 
 export default function ChannelsTabsContainer(props: BasicChannelTabsProps) {
     const [userId, setUserId] = useState("");
-    const { showBookmarkBar, widerTabsAndBookmarks, hideTabs } = settings.use(["showBookmarkBar", "widerTabsAndBookmarks", "hideTabs"]);
+    const { showBookmarkBar, widerTabsAndBookmarks } = settings.use(["showBookmarkBar", "widerTabsAndBookmarks"]);
     const GhostTabs = useGhostTabs();
 
     const _update = useForceUpdater();
@@ -57,7 +57,7 @@ export default function ChannelsTabsContainer(props: BasicChannelTabsProps) {
 
     ref = useRef<HTMLDivElement>(null);
     hideTabsBar();
-    
+
     useEffect(() => {
         setUpdaterFunction(update);
         const onLogin = () => {
@@ -144,5 +144,3 @@ export function ChannelTabsPreview(p) {
         </>
     );
 }
-
-export var ref;
