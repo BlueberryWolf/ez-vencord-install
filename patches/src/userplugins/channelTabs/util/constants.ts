@@ -26,7 +26,7 @@ export const bookmarkFolderColors = {
 
 
 export const ReadStateUtils = mapMangledModuleLazy('type:"ENABLE_AUTOMATIC_ACK",', {
-    ackChannel: filters.byCode(".getActiveJoinedThreadsForParent(")
+    ackChannel: filters.byCode(".isForumLikeChannel(")
 });
 
 export const useDrag = findByCodeLazy("useDrag::spec.begin was deprecated");
