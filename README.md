@@ -85,13 +85,13 @@ Vencord comes with its own set of plugins. On top of those, ez-vencord-install i
 
 ---
 
-### BetterMicrophone
+### BetterMicrophone/BetterScreenshare
 
-Discord frequently changes its UI, which may cause issues with this plugin. A hotfix is included in case it is broken.
+Discord frequently changes its UI, which may cause issues with these plugins. A hotfix is included in case it is broken.
 
-1. In Vencord's plugins, enable `BetterMicrophone` and `VencordToolbox`.
+1. In Vencord's plugins, enable `BetterMicrophone (or BetterScreenshare)` and `VencordToolbox`.
 2. Click the **Vencord Toolbox** icon in the top right of Discord.
-3. Configure the plugin under **BetterMicrophone → Open Microphone Settings**.
+3. Configure the plugin under **BetterMicrophone/BetterScreenshare → Open Microphone/Screenshare Settings**.
 
 ---
 
