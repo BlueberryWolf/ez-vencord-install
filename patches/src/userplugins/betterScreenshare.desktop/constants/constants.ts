@@ -36,7 +36,7 @@ export const PluginInfo = {
         Loukios: {
             github: "https://github.com/loukious",
             id: 211461918127292416n,
-            name: "Loukios"
+            name: "Loukious"
         }
     },
     README: "https://github.com/Vendicated/Vencord/tree/main/src/plugins/betterScreenshare"

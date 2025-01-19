@@ -16,7 +16,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { PluginAuthor, PluginDef } from "@utils/types";
+import { Devs } from "@utils/constants";
+import definePlugin from "@utils/types";
 
 import { addSettingsPanelButton, Emitter, MicrophoneSettingsIcon, removeSettingsPanelButton } from "../philsPluginLibrary";
 import { PluginInfo } from "./constants";
@@ -24,35 +25,18 @@ import { openMicrophoneSettingsModal } from "./modals";
 import { MicrophonePatcher } from "./patchers";
 import { initMicrophoneStore } from "./stores";
 
-export default new class Plugin implements PluginDef {
-    readonly name: string;
-    readonly description: string;
-    readonly authors: PluginAuthor[];
-    readonly dependencies: string[];
-
-    public microphonePatcher?: MicrophonePatcher;
-
-    toolboxActions: Record<string, () => void>;
-
-    constructor() {
-        this.name = PluginInfo.PLUGIN_NAME;
-        this.description = PluginInfo.DESCRIPTION;
-        this.authors = [PluginInfo.AUTHOR, ...Object.values(PluginInfo.CONTRIBUTORS)] as PluginAuthor[];
-        this.dependencies = ["PhilsPluginLibrary"];
-
-        this.toolboxActions = {
-            "Open Microphone Settings": openMicrophoneSettingsModal
-        };
-    }
-
+export default definePlugin({
+    name: "BetterMicrophone",
+    description: "This plugin allows you to further customize your microphone.",
+    authors: [Devs.philhk],
+    dependencies: ["PhilsPluginLibrary"],
     start(): void {
         initMicrophoneStore();
 
         this.microphonePatcher = new MicrophonePatcher().patch();
 
         addSettingsPanelButton({ name: PluginInfo.PLUGIN_NAME, icon: MicrophoneSettingsIcon, tooltipText: "Microphone Settings", onClick: openMicrophoneSettingsModal });
-    }
-
+    },
     stop(): void {
         this.microphonePatcher?.unpatch();
 
@@ -60,4 +44,4 @@ export default new class Plugin implements PluginDef {
 
         removeSettingsPanelButton(PluginInfo.PLUGIN_NAME);
     }
-};
+});
