@@ -32,11 +32,17 @@ export default new class Plugin implements PluginDef {
 
     public microphonePatcher?: MicrophonePatcher;
 
+    toolboxActions: Record<string, () => void>;
+
     constructor() {
         this.name = PluginInfo.PLUGIN_NAME;
         this.description = PluginInfo.DESCRIPTION;
         this.authors = [PluginInfo.AUTHOR, ...Object.values(PluginInfo.CONTRIBUTORS)] as PluginAuthor[];
         this.dependencies = ["PhilsPluginLibrary"];
+
+        this.toolboxActions = {
+            "Open Microphone Settings": openMicrophoneSettingsModal
+        };
     }
 
     start(): void {
