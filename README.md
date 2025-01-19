@@ -13,7 +13,7 @@ A Vencord installer with stereo (from philhk) and other stuff.
 ## Instructions
 
 ### 1. Clone or download the repository:
-- Clone the repo:  
+- Clone the repo (highly recommended):
   > ```bash
   > git clone https://github.com/BlueberryWolf/ez-vencord-install
   > ```
@@ -87,7 +87,7 @@ Vencord comes with its own set of plugins. On top of those, ez-vencord-install i
 
 ### BetterMicrophone
 
-Discord frequently changes its UI, which can cause issues with this plugin. A hotfix is included.
+Discord frequently changes its UI, whicha always causes issues with this plugin. A hotfix is included.
 
 1. In Vencord's plugins, enable `BetterMicrophone` and `VencordToolbox`.
 2. Click the **Vencord Toolbox** icon in the top right of Discord.
