@@ -87,7 +87,7 @@ Vencord comes with its own set of plugins. On top of those, ez-vencord-install i
 
 ### BetterMicrophone
 
-Discord frequently changes its UI, whicha always causes issues with this plugin. A hotfix is included.
+Discord frequently changes its UI, which may cause issues with this plugin. A hotfix is included in case it is broken.
 
 1. In Vencord's plugins, enable `BetterMicrophone` and `VencordToolbox`.
 2. Click the **Vencord Toolbox** icon in the top right of Discord.
@@ -98,10 +98,11 @@ Discord frequently changes its UI, whicha always causes issues with this plugin.
 ## Credits
 
 - **Vencord**: [GitHub](https://github.com/vendicated/vencord)  
-- **Stereo/Screenshare**: [GitHub](https://github.com/philhk/Vencord)  
+- **Stereo/Screenshare**: [GitHub](https://github.com/philhk/Vencord)
+  - Fixed by @Loukious
 - **MessageLogger Enhanced**: [GitHub](https://github.com/Syncxv/vc-message-logger-enhanced)  
 - **Gif Collections**: [GitHub](https://github.com/Syncxv/vc-gif-collections)  
-- **Timezones**: [GitHub](https://github.com/Syncxv/vc-timezones)  
+- **Timezones**: [GitHub](https://github.com/Syncxv/vc-timezones)
 
 ### Additional Contributions
 
