@@ -51,7 +51,7 @@ exit /B 0
 :installpnpm
 echo installing pnpm. press any key to continue
 pause >nul
-cmd /c npm i -g pnpm@9.1.0
+cmd /c npm i -g pnpm@10.4.1
 echo should be fixed now.
 pause >nul
 exit /B 0
