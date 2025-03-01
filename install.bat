@@ -3,6 +3,7 @@ set nodeinstalled=no
 set gitinstalled=no
 set chocoinstalled=no
 set scriptdir="%~dp0%~nx0"
+set TARGET_PNPM_VERSION=10.4.1
 
 echo install script written by @blueberrywolfi on discord
 echo.
@@ -61,16 +62,22 @@ goto checkDependencies
 exit /B 0
 
 :installpnpm
-CMD /C "npm i -g pnpm@10.4.1"
+CMD /C "npm i -g pnpm@%TARGET_PNPM_VERSION%"
 goto restartscriptunelevated
 exit /B 0
 
 :installvencord
-CMD /C "pnpm -v" >nul 2>&1 && (
-	echo pnpm installed
-) || (
-	echo pnpm not installed
-	goto installpnpm
+for /f "delims=" %%v in ('pnpm -v 2^>nul') do set "PNPM_VERSION=%%v"
+if defined PNPM_VERSION (
+    if "%PNPM_VERSION%"=="%TARGET_PNPM_VERSION%" (
+        echo pnpm installed and version is %PNPM_VERSION%
+    ) else (
+        echo pnpm installed but version is %PNPM_VERSION%, expected %TARGET_PNPM_VERSION%
+        goto installpnpm
+    )
+) else (
+    echo pnpm not installed
+    goto installpnpm
 )
 cd /d "%~dp0"
 
