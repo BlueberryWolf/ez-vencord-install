@@ -106,24 +106,13 @@ export default definePlugin({
     settings,
 
     patches: [
-        {
-            find: "renderPrioritySpeaker",
-            replacement: [
-                {
-                    match: /(render\(\)\{.+\}\),children:)\[(.+renderName\(\),)/,
-                    replace: "$&,$self.showClockInjection(this),"
-                }
-            ]
-        },
-        {
-            find: "renderPrioritySpeaker",
-            replacement: [
-                {
-                    match: /(renderName\(\)\{.+:"")/,
-                    replace: "$&,$self.showTextInjection(this),"
-                }
-            ]
-        }
+		{
+            find: ".usernameSpeaking]:",
+            replacement: {
+                match: /\i\.getName\((\i)\),/,
+                replace: "$&$self.showInjection($1.id),"
+            }
+		}
     ],
 
     flux: {
@@ -227,23 +216,11 @@ export default definePlugin({
         }
     },
 
-    showClockInjection(property: { props: { user: { id: string; }; }; }) {
-        if (settings.store.showWithoutHover) {
-            return "";
-        }
-        return this.showInjection(property);
-    },
-
-    showTextInjection(property: { props: { user: { id: string; }; }; }) {
+    showInjection(userId: string) {
         if (!settings.store.showWithoutHover) {
             return "";
         }
-        return this.showInjection(property);
-    },
-
-    showInjection(property: { props: { user: { id: string; }; }; }) {
-        const userId = property.props.user.id;
-        return this.renderTimer(userId);
+		return this.renderTimer(userId);
     },
 
     renderTimer(userId: string) {
