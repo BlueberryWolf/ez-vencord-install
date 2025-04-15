@@ -1,17 +1,11 @@
-/*
- * Vencord, a Discord client mod
- * Copyright (c) 2024 Vendicated and contributors
- * SPDX-License-Identifier: GPL-3.0-or-later
- */
-
 import { definePluginSettings } from "@api/Settings";
 import ErrorBoundary from "@components/ErrorBoundary";
 import { Devs } from "@utils/constants";
 import definePlugin, { OptionType } from "@utils/types";
 import { FluxDispatcher, GuildStore, UserStore } from "@webpack/common";
-import { PassiveUpdateState, VoiceState } from "@webpack/types";
 
 import { Timer } from "./Timer";
+import { PassiveUpdateState, VoiceState } from "./types";
 
 export const settings = definePluginSettings({
     showWithoutHover: {
@@ -101,28 +95,20 @@ let runOneTime = true;
 export default definePlugin({
     name: "AllCallTimers",
     description: "Add call timer to all users in a server voice channel.",
-    authors: [Devs.MaxHerbold, Devs.D3SOX],
+    authors: [{
+        name: "Max",
+        id: 0n
+    }, Devs.D3SOX],
 
     settings,
 
     patches: [
         {
-            find: "renderPrioritySpeaker",
-            replacement: [
-                {
-                    match: /(render\(\)\{.+\}\),children:)\[(.+renderName\(\),)/,
-                    replace: "$&,$self.showClockInjection(this),"
-                }
-            ]
-        },
-        {
-            find: "renderPrioritySpeaker",
-            replacement: [
-                {
-                    match: /(renderName\(\)\{.+:"")/,
-                    replace: "$&,$self.showTextInjection(this),"
-                }
-            ]
+            find: ".usernameSpeaking]:",
+            replacement: {
+                match: /\i\.getName\((\i)\),/,
+                replace: "$&$self.showInjection($1.id),"
+            }
         }
     ],
 
@@ -227,22 +213,10 @@ export default definePlugin({
         }
     },
 
-    showClockInjection(property: { props: { user: { id: string; }; }; }) {
-        if (settings.store.showWithoutHover) {
-            return "";
-        }
-        return this.showInjection(property);
-    },
-
-    showTextInjection(property: { props: { user: { id: string; }; }; }) {
+    showInjection(userId: string) {
         if (!settings.store.showWithoutHover) {
             return "";
         }
-        return this.showInjection(property);
-    },
-
-    showInjection(property: { props: { user: { id: string; }; }; }) {
-        const userId = property.props.user.id;
         return this.renderTimer(userId);
     },
 

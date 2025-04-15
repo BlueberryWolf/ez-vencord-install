@@ -1,21 +1,16 @@
-/*
- * Vencord, a Discord client mod
- * Copyright (c) 2024 Vendicated and contributors
- * SPDX-License-Identifier: GPL-3.0-or-later
- */
-
-import { Tooltip, useEffect, useState } from "@webpack/common";
+import { React, Tooltip, useEffect, useState } from "@webpack/common";
 
 import { settings } from "./index";
 import { TimerIcon } from "./TimerIcon";
 import { TimerText } from "./timerText";
+
 
 interface FixedTimerOpts {
     interval?: number;
     initialTime?: number;
 }
 
-function useFixedTimer({ interval = 1000, initialTime = Date.now() }: FixedTimerOpts) {
+export function useFixedTimer({ interval = 1000, initialTime = Date.now() }: FixedTimerOpts) {
     const [time, setTime] = useState(Date.now() - initialTime);
 
     useEffect(() => {
@@ -29,6 +24,18 @@ function useFixedTimer({ interval = 1000, initialTime = Date.now() }: FixedTimer
     return time;
 }
 
+/**
+ * The `formatDurationMs` function formats a duration in milliseconds into a human-readable string,
+ * with the option to include units such as days, hours, minutes, and seconds.
+ * @param {number} ms - The `ms` parameter represents the duration in milliseconds that you want to
+ * format.
+ * @param {boolean} [human=false] - The `human` parameter is a boolean flag that determines whether the
+ * duration should be formatted in a human-readable format or not. If `human` is set to `true`, the
+ * duration will be formatted as "Xd Xh Xm Xs". If `human` is set to `false` (the default), the
+ * duration will be formatted as "XX:XX:XX:XX".
+ * @returns The function `formatDurationMs` returns a formatted string representing the duration in
+ * milliseconds.
+ */
 function formatDurationMs(ms: number, human: boolean = false, seconds: boolean = true) {
     const format = (n: number) => human ? n : n.toString().padStart(2, "0");
     const unit = (s: string) => human ? s : "";
