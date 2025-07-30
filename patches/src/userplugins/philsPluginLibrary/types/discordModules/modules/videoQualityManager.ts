@@ -16,8 +16,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { Bitrate, Framerate, Resolution } from "../../";
-import { Connection } from "./";
+import { Bitrate, Framerate, Resolution } from "../..";
+import { Connection } from ".";
 
 export type VideoQualityManager = VideoQualityManager_ & {
     connection: Connection;

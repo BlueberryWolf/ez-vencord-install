@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { Switch } from "@components/Switch";
+import { Switch } from "@webpack/common";
 import { Card, Forms } from "@webpack/common";
 import React from "react";
 

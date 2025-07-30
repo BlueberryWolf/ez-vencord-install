@@ -19,7 +19,7 @@
 import { Flex } from "@components/Flex";
 import { Select, TextInput, useEffect, useState } from "@webpack/common";
 
-import { PluginSettings, ProfilableStore } from "../../../philsPluginLibrary";
+import { PluginSettings, ProfilableStore } from "../..";
 import { CopyButton, DeleteButton, NewButton, SaveButton } from "../buttons";
 import { SettingsModalCard } from "./SettingsModalCard";
 import { SettingsModalCardItem } from "./SettingsModalCardItem";

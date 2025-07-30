@@ -18,7 +18,7 @@
 
 import TypedEmitter from "typed-emitter";
 
-import { Connection } from "./";
+import { Connection } from ".";
 
 export const MediaEngineEvent = {
     REMOVE_LISTENER: "removeListener",
