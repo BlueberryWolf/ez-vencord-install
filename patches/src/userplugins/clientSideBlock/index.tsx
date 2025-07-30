@@ -99,6 +99,7 @@ function shouldHideUser(userId: string, channelId?: string) {
 
 // This is really horror
 function isRoleAllBlockedMembers(roleId, guildId) {
+	if (!GuildRoleStore) return false;
     const role = GuildRoleStore.getRole(guildId, roleId);
     if (!role) return false;
 

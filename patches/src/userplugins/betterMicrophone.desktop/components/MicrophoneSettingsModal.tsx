@@ -17,7 +17,7 @@
 */
 
 import { Flex } from "@components/Flex";
-import { Switch } from "@components/Switch";
+import { Switch } from "@webpack/common";
 import { ModalSize } from "@utils/modal";
 import { Card, Forms, Select, Slider, TextInput, useEffect, useState } from "@webpack/common";
 import { SelectOption } from "@webpack/types";

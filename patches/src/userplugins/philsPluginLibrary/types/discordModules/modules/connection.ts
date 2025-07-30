@@ -18,8 +18,8 @@
 
 import TypedEmitter from "typed-emitter";
 
-import { Framerate, Resolution } from "../../../types";
-import { Conn, FramerateReducer, VideoQualityManager } from "./";
+import { Framerate, Resolution } from "../..";
+import { Conn, FramerateReducer, VideoQualityManager } from ".";
 
 export const ConnectionEvent = {
     SPEAKING: "speaking",
